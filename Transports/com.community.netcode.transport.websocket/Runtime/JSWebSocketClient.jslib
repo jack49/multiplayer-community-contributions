@@ -30,6 +30,15 @@ var LibraryWebSocket = {
   },
 
   _Connect: function () {
+
+    // fix for unity 2021 because unity bug in .jslib
+    if (typeof Runtime === "undefined") {
+      // if unity doesn't create Runtime, then make it here
+      Runtime = {
+          dynCall: dynCall
+      }
+    }
+
     state.ws = new WebSocket(state.url);
     state.ws.binaryType = 'arraybuffer';
 
